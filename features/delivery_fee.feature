@@ -8,7 +8,7 @@ Feature: Delivery Fee Calculation
 
     And the product catalog service returns the following product metadata:
       | sku            | weight | is_hazardous | category        |
-      | BRAKE-PAD-001  | 1.2    | false        | brake_components |
+      | BRAKE-PAD-001  | 1.4    | false        | brake_components |
       | HEADLIGHT-002  | 0.5    | false        | lighting         |
 
     And the total cart value is 120.00 EUR
