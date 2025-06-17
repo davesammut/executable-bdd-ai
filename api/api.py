@@ -27,7 +27,7 @@ def create_app(data_provider):
             "total_cart_value": total_cart_value,
             "breakdown": [
                 {"type": "Base Fee", "amount": 99.00},
-                {"type": "Promotional Discount", "amount": -88.00}
+                {"type": "Promotional Discount", "amount": 88.00}
             ]
         })
 
