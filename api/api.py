@@ -15,6 +15,7 @@ def create_app(data_provider):
         product_metadata = data.get("product_metadata", [])
         total_cart_value = data.get("total_cart_value", 0.0)
 
+        logging.info(f"cart_id: {cart_id}")
         logging.info(f"cart_items: {cart_items}")
         logging.info(f"product_metadata: {product_metadata}")
         logging.info(f"total_cart_value: {total_cart_value}")
