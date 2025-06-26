@@ -34,7 +34,6 @@ def create_bdd_app(cart_adapter, product_metadata_adapter, cart_value_adapter):
     """BDD app: production endpoints + BDD/test endpoints."""
     app = create_app(cart_adapter, product_metadata_adapter, cart_value_adapter)
 
-    @app.route("/product-metadata", methods=["POST"])
     def set_product_metadata():
         data = request.get_json()
         cart_adapter.set_product_metadata(data.get("product_metadata", ""))
@@ -42,8 +41,12 @@ def create_bdd_app(cart_adapter, product_metadata_adapter, cart_value_adapter):
         return jsonify({
             "PRODUCT_METADATA_ADDED_STATUS": "OK",
         })
+    app.add_url_rule(
+        "/product-metadata",
+        view_func=set_product_metadata,
+        methods=["POST"]
+    )
 
-    @app.route("/cart-value", methods=["POST"])
     def set_cart_value():
         data = request.get_json()
         cart_adapter.set_total_cart_value(data.get("total_cart_value", 0.0))
@@ -51,6 +54,11 @@ def create_bdd_app(cart_adapter, product_metadata_adapter, cart_value_adapter):
         return jsonify({
             "CART_VALUE_ADDED_STATUS": "OK",
         })
+    app.add_url_rule(
+        "/cart-value",
+        view_func=set_cart_value,
+        methods=["POST"]
+    )
 
     from api.bdd_routes import register_bdd_routes
     register_bdd_routes(app, cart_adapter)
