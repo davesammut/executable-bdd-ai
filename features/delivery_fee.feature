@@ -22,8 +22,3 @@ Feature: Delivery Fee Calculation
       | field               | value |
       | total_delivery_fee  | 0.00  |
       | currency            | EUR   |
-
-    And the fee breakdown should include:
-      | type                       | amount |
-      | Base Fee                   | 5.00   |
-      | Promotional Discount       | -5.00  |

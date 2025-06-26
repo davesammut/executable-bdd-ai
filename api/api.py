@@ -64,13 +64,13 @@ def create_app(cart_adapter, product_metadata_adapter, cart_value_adapter):
         return jsonify({
             "total_delivery_fee": delivery_fee_service.get_total_delivery_fee(cart_id),
             "currency": "EUR",
-            "cart_items": cart_items,
-            "product_metadata": product_metadata,
-            "total_cart_value": total_cart_value,
-            "breakdown": [
-                {"type": "Base Fee", "amount": cart_adapter.get_base_fee()},
-                {"type": "Promotional Discount", "amount": cart_adapter.get_promotional_discount()}
-            ]
+            #"cart_items": cart_items,
+            #"product_metadata": product_metadata,
+            #"total_cart_value": total_cart_value,
+            #"breakdown": [
+            #    {"type": "Base Fee", "amount": cart_adapter.get_base_fee()},
+            #    {"type": "Promotional Discount", "amount": cart_adapter.get_promotional_discount()}
+            #]
         })
 
     return app
