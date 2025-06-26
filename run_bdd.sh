@@ -1,6 +1,8 @@
 #!/bin/bash
 # BDD Test Runner: Starts the API, runs BDD (behave) tests, then shuts down the API.
 
+export ENABLE_BDD_APP=1
+
 echo "Starting API for BDD tests on port 5001..."
 python3 -u -m api.api &
 API_PID=$!
