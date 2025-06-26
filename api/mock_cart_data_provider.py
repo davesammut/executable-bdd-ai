@@ -1,21 +1,16 @@
 # mock_cart_data_provider.py
-import logging
 
-_cart_items = []
-_total_cart_value = 0.0
+_cart_items_by_id = {}
+_cart_value_by_id = {}
 
-def set_cart_items(items):
-    logging.info(f"MOCK_SET_CART_ITEMS: {items}")
-    global _cart_items
-    _cart_items = items
+def set_cart_items(cart_id, items):
+    _cart_items_by_id[cart_id] = items
 
-def set_total_cart_value(value):
-    global _total_cart_value
-    _total_cart_value = value
+def set_total_cart_value(cart_id, value):
+    _cart_value_by_id[cart_id] = value
 
 def get_cart_items(cart_id):
-    logging.info(f"MOCK_GET: {cart_id}")
-    return _cart_items
+    return _cart_items_by_id.get(cart_id, [])
 
 def get_total_cart_value(cart_id):
-    return _total_cart_value
+    return _cart_value_by_id.get(cart_id, 0.0)

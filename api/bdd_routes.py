@@ -4,8 +4,9 @@ def register_bdd_routes(app, cart_adapter, product_metadata_adapter):
     @app.route("/cart", methods=["POST"])
     def set_cart():
         data = request.get_json()
-        cart_adapter.set_cart_items(data.get("cart_items", ""))
-        cart_items = cart_adapter.get_cart_items("AAA")
+        cart_id = data.get("cart_id", "default")
+        cart_adapter.set_cart_items(cart_id, data.get("cart_items", ""))
+        cart_items = cart_adapter.get_cart_items(cart_id)
         app.logger.info(f"API_CART_SET_OK")
         return jsonify({
             "CART_ADDED_STATUS": "OK",
@@ -14,7 +15,8 @@ def register_bdd_routes(app, cart_adapter, product_metadata_adapter):
     @app.route("/cart-value", methods=["POST"])
     def set_cart_value():
         data = request.get_json()
-        cart_adapter.set_total_cart_value(data.get("total_cart_value", 0.0))
+        cart_id = data.get("cart_id", "default")
+        cart_adapter.set_total_cart_value(cart_id, data.get("total_cart_value", 0.0))
         app.logger.info(f"API_CART_VALUE_SET_OK")
         return jsonify({
             "CART_VALUE_ADDED_STATUS": "OK",
