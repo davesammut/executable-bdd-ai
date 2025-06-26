@@ -1,16 +1,12 @@
 from api.domain.ports import DeliveryFeeInboundPort
 
 class DeliveryFeeApiAdapter(DeliveryFeeInboundPort):
-    def __init__(self, delivery_fee_service, cart_adapter):
+    def __init__(self, delivery_fee_service):
         self.delivery_fee_service = delivery_fee_service
-        self.cart_adapter = cart_adapter
-
+     
     def calculate_delivery_fee(self, request) -> dict:
         data = request.get_json()
         cart_id = data.get("cart_id", "")
-        cart_items = self.cart_adapter.get_cart_items(cart_id)
-        product_metadata = self.cart_adapter.get_product_metadata()
-        total_cart_value = self.cart_adapter.get_total_cart_value(cart_id)
         delivery_fee_result = self.delivery_fee_service.get_total_delivery_fee(cart_id)
         return {
             "total_delivery_fee": delivery_fee_result.value,

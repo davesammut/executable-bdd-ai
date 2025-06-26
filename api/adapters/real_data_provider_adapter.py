@@ -1,6 +1,6 @@
 from api.domain.ports import CartPort, ProductMetadataPort, CartValuePort
 
-class RealCartAdapter(CartPort):
+class CartAdapter(CartPort):
     def set_cart_items(self, items):
         # TODO: Implement real cart item persistence
         pass
@@ -8,7 +8,7 @@ class RealCartAdapter(CartPort):
         # TODO: Implement real cart item retrieval
         return []
 
-class RealProductMetadataAdapter(ProductMetadataPort):
+class ProductMetadataAdapter(ProductMetadataPort):
     def set_product_metadata(self, metadata):
         # TODO: Implement real product metadata persistence
         pass
@@ -16,7 +16,7 @@ class RealProductMetadataAdapter(ProductMetadataPort):
         # TODO: Implement real product metadata retrieval
         return []
 
-class RealCartValueAdapter(CartValuePort):
+class CartValueAdapter(CartValuePort):
     def set_total_cart_value(self, value):
         # TODO: Implement real cart value persistence
         pass

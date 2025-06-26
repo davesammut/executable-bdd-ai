@@ -1,13 +1,12 @@
-from api.domain.ports import CartPort, ProductMetadataPort, CartValuePort
+from api.domain.ports import CartPort, CartValuePort
 from typing import Any
 
 class CartAdapter:
     """
     Adapter for cart operations, delegating calls to the underlying ports.
     """
-    def __init__(self, cart_port: CartPort, product_metadata_port: ProductMetadataPort, cart_value_port: CartValuePort):
+    def __init__(self, cart_port: CartPort, cart_value_port: CartValuePort):
         self.cart_port = cart_port
-        self.product_metadata_port = product_metadata_port
         self.cart_value_port = cart_value_port
 
     def set_cart_items(self, items: Any):
@@ -16,11 +15,6 @@ class CartAdapter:
     def get_cart_items(self, cart_id: str):
         return self.cart_port.get_cart_items(cart_id)
 
-    def set_product_metadata(self, metadata: Any):
-        self.product_metadata_port.set_product_metadata(metadata)
-
-    def get_product_metadata(self):
-        return self.product_metadata_port.get_product_metadata()
 
     def set_total_cart_value(self, value: float):
         self.cart_value_port.set_total_cart_value(value)

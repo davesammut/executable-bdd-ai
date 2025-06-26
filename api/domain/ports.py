@@ -15,6 +15,14 @@ class CartPort(ABC):
     def get_cart_items(self, cart_id: str):
         pass
 
+    @abstractmethod
+    def set_total_cart_value(self, value: float):
+        pass
+
+    @abstractmethod
+    def get_total_cart_value(self, cart_id: str):
+        pass
+
 class ProductMetadataPort(ABC):
     @abstractmethod
     def set_product_metadata(self, metadata: Any):
@@ -25,10 +33,4 @@ class ProductMetadataPort(ABC):
         pass
 
 class CartValuePort(ABC):
-    @abstractmethod
-    def set_total_cart_value(self, value: float):
-        pass
-
-    @abstractmethod
-    def get_total_cart_value(self, cart_id: str):
-        pass
+    pass
