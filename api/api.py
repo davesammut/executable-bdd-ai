@@ -42,14 +42,14 @@ if __name__ == "__main__":
     from api.adapters.mock_data_provider_adapter import (
         MockCartAdapter, MockProductMetadataAdapter
     )
-    from api.adapters.real_data_provider_adapter import (
-        CartAdapter, ProductMetadataAdapter
-    )
+    from api.adapters.cart_value_data_provider_adapter import CartValueAdapter
+    from api.adapters.product_data_provider_adapter import ProductMetadataAdapter
     #Manage dependencies depending on the start up context
     if os.getenv("ENABLE_BDD_APP") == "1":
         cart_adapter = MockCartAdapter()
         product_metadata_adapter = MockProductMetadataAdapter()
     else:
+        cart_adapter = CartValueAdapter()
         cart_adapter = CartAdapter()
         product_metadata_adapter = ProductMetadataAdapter()
 

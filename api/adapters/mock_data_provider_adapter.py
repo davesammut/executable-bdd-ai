@@ -1,5 +1,5 @@
 from api import mock_cart_data_provider, mock_product_data_provider
-from api.domain.ports import CartPort, ProductMetadataPort, CartValuePort
+from api.domain.ports import CartPort, ProductMetadataPort
 
 class MockCartAdapter(CartPort):
     def set_cart_items(self, cart_id, items):
