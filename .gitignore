@@ -37,3 +37,6 @@ htmlcov/
 
 # Ignore API logs if you use them
 api.log
+
+# Ignore all files in api/__pycache__
+api/__pycache__/

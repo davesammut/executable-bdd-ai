@@ -1,4 +1,5 @@
 import requests
+import logging
 from api import mock_data_provider
 from behave import given, when, then
 
@@ -6,17 +7,49 @@ from behave import given, when, then
 def step_cart_service(context, cart_id):
     context.cart_id = cart_id
     context.cart_items = [row.as_dict() for row in context.table]
-    mock_data_provider.set_cart_items(context.cart_items)
+    #mock_data_provider.set_cart_items(context.cart_items)
+    payload = {
+        #"cart_id": row["cart_id"],
+        #"customer_type": row["customer_type"],
+        #"shipping_country": row["shipping_country"],
+        "cart_items": getattr(context, "cart_items", []),
+        #"product_metadata": getattr(context, "product_metadata", []),
+        #"total_cart_value": getattr(context, "total_cart_value", 0.0)
+    }
+    logging.info(f"STEP_CART_POST: {payload}")
+    context.response = requests.post("http://localhost:5001/cart", json=payload)
 
 @given('the product catalog service returns the following product metadata')
 def step_product_metadata(context):
     context.product_metadata = [row.as_dict() for row in context.table]
-    mock_data_provider.set_product_metadata(context.product_metadata)
+    #mock_data_provider.set_product_metadata(context.product_metadata)
+    payload = {
+        #"cart_id": row["cart_id"],
+        #"customer_type": row["customer_type"],
+        #"shipping_country": row["shipping_country"],
+        "product_metadata": getattr(context, "product_metadata", []),
+        #"product_metadata": getattr(context, "product_metadata", []),
+        #"total_cart_value": getattr(context, "total_cart_value", 0.0)
+    }
+    logging.info(f"STEP_PRODUCTS_POST: {payload}")
+    context.response = requests.post("http://localhost:5001/product-metadata", json=payload)
 
 @given('the total cart value is {value:f} EUR')
 def step_cart_value(context, value):
-    context.total_cart_value = value
-    mock_data_provider.set_total_cart_value(value)
+    #context.total_cart_value = value
+    #mock_data_provider.set_total_cart_value(value)
+    #context.product_metadata = [row.as_dict() for row in context.table]
+    #mock_data_provider.set_product_metadata(context.product_metadata)
+    payload = {
+        #"cart_id": row["cart_id"],
+        #"customer_type": row["customer_type"],
+        #"shipping_country": row["shipping_country"],
+        #"product_metadata": getattr(context, "product_metadata", []),
+        #"product_metadata": getattr(context, "product_metadata", []),
+        "total_cart_value": value,
+    }
+    logging.info(f"STEP_CART_VALUE_POST: {payload}")
+    context.response = requests.post("http://localhost:5001/cart-value", json=payload)
 
 @when('the checkout service calls POST /delivery-fee/calculate with')
 def step_post_delivery_fee(context):
@@ -25,9 +58,9 @@ def step_post_delivery_fee(context):
         "cart_id": row["cart_id"],
         "customer_type": row["customer_type"],
         "shipping_country": row["shipping_country"],
-        "cart_items": getattr(context, "cart_items", []),
-        "product_metadata": getattr(context, "product_metadata", []),
-        "total_cart_value": getattr(context, "total_cart_value", 0.0)
+        #"cart_items": getattr(context, "cart_items", []),
+        #"product_metadata": getattr(context, "product_metadata", []),
+        #"total_cart_value": getattr(context, "total_cart_value", 0.0)
     }
     context.response = requests.post("http://localhost:5001/delivery-fee/calculate", json=payload)
     context.result = context.response.json()
