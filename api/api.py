@@ -14,7 +14,7 @@ def create_base_app(cart_adapter, product_metadata_adapter, cart_value_adapter):
     logging.basicConfig(level=logging.INFO, format='[API] %(message)s')
 
     from api.adapters.delivery_fee_api_adapter import DeliveryFeeApiAdapter
-    delivery_fee_service = DeliveryFeeService(cart_adapter)
+    delivery_fee_service = DeliveryFeeService(cart_adapter, product_metadata_adapter)
     delivery_fee_api_adapter = DeliveryFeeApiAdapter(delivery_fee_service, cart_adapter)
 
     app.add_url_rule(
@@ -65,23 +65,24 @@ def create_bdd_app(cart_adapter, product_metadata_adapter, cart_value_adapter):
     return app
 
 if __name__ == "__main__":
-    cart_adapter = CartAdapter(
-        MockCartAdapter(),
-        MockProductMetadataAdapter(),
-        MockCartValueAdapter()
-    )
     import os
-    if os.getenv("ENABLE_BDD_APP") == "1":
-        app = create_bdd_app(cart_adapter, None, None)
-    else:
-        app = create_app(cart_adapter, None, None)
-    app.run(port=5001)
-
-if __name__ == "__main__":
-    cart_adapter = CartAdapter(
-        MockCartAdapter(),
-        MockProductMetadataAdapter(),
-        MockCartValueAdapter()
+    from api.adapters.mock_data_provider_adapter import (
+        MockCartAdapter, MockProductMetadataAdapter, MockCartValueAdapter
     )
-    app = create_app(cart_adapter, None, None)
+    from api.adapters.real_data_provider_adapter import (
+        RealCartAdapter, RealProductMetadataAdapter, RealCartValueAdapter
+    )
+
+    if os.getenv("ENABLE_BDD_APP") == "1":
+        cart_port = MockCartAdapter()
+        product_metadata_port = MockProductMetadataAdapter()
+        cart_value_port = MockCartValueAdapter()
+    else:
+        cart_port = RealCartAdapter()
+        product_metadata_port = RealProductMetadataAdapter()
+        cart_value_port = RealCartValueAdapter()
+
+    cart_adapter = CartAdapter(cart_port, product_metadata_port, cart_value_port)
+    app_factory = create_bdd_app if os.getenv("ENABLE_BDD_APP") == "1" else create_app
+    app = app_factory(cart_adapter, product_metadata_port, cart_value_port)
     app.run(port=5001)
