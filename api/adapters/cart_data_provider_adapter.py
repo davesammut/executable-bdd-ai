@@ -1,6 +1,6 @@
 from api.domain.ports import CartPort
 
-class CartAdapter(CartPort):
+class CartDataProviderAdapter(CartPort):
     def set_cart_items(self, items):
         # TODO: Implement real cart item persistence
         pass

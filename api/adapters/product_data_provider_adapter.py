@@ -1,6 +1,6 @@
 from api.domain.ports import ProductMetadataPort
 
-class ProductMetadataAdapter(ProductMetadataPort):
+class ProductMetadataDataProviderAdapter(ProductMetadataPort):
     def set_product_metadata(self, metadata):
         # TODO: Implement real product metadata persistence
         pass
