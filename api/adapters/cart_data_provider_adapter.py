@@ -1,9 +1,6 @@
-from api.domain.ports import CartPort
+from api.domain.ports import CartQueryPort
 
-class CartDataProviderAdapter(CartPort):
-    def set_cart_items(self, items):
-        # TODO: Implement real cart item persistence
-        pass
+class CartDataProviderAdapter(CartQueryPort):
     def get_cart_items(self, cart_id):
         # TODO: Implement real cart item retrieval
         return []

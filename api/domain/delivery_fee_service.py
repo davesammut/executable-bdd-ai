@@ -1,4 +1,4 @@
-from api.domain.ports import CartPort, ProductMetadataPort
+from api.domain.ports import CartQueryPort, ProductMetadataQueryPort
 
 class DeliveryFeeResult:
     def __init__(self, value: float, currency: str):
@@ -6,9 +6,9 @@ class DeliveryFeeResult:
         self.currency = currency
 
 class DeliveryFeeService:
-    def __init__(self, cart_port: CartPort, product_metadata_port: ProductMetadataPort):
+    def __init__(self, cart_port: CartQueryPort, product_metadata_port: ProductMetadataQueryPort):
         """
-        Service for calculating delivery fees. Requires adapters for cart data and product metadata.
+        Service for calculating delivery fees. Requires query ports for cart data and product metadata.
         """
         self.cart_port = cart_port
         self.product_metadata_port = product_metadata_port

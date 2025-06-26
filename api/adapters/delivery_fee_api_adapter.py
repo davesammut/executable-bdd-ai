@@ -1,7 +1,13 @@
 from api.domain.ports import DeliveryFeeInboundPort
 
+from typing import Protocol
+
+class HasGetTotalDeliveryFee(Protocol):
+    def get_total_delivery_fee(self, cart_id: str):
+        ...
+
 class DeliveryFeeApiAdapter(DeliveryFeeInboundPort):
-    def __init__(self, delivery_fee_service):
+    def __init__(self, delivery_fee_service: HasGetTotalDeliveryFee):
         self.delivery_fee_service = delivery_fee_service
      
     def calculate_delivery_fee(self, request) -> dict:
